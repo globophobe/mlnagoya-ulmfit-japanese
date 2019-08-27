@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "start": "mdx-deck presentation.mdx",
+    "html": "mdx-deck build -d docs --basepath='/ulmfit' presentation.mdx",
+    "pdf": "rm -rf dist && mdx-deck-export pdf --width 1280 --height 720 presentation.mdx"
+  },
+  "dependencies": {
+    "gatsby-plugin-emotion": "^4.1.2",
+    "gatsby-plugin-mdx": "^1.0.24",
+    "mdx-deck": "^3.0.9"
+  },
+  "devDependencies": {}
+}

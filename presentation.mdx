@@ -1,0 +1,363 @@
+import aspect from '@mdx-deck/themes/aspect';
+import theme from './theme';
+import arex from './assets/arex.jpg';
+import jh from './assets/jeremy-howard.png';
+
+export const themes = [ aspect, theme ];
+
+# [Fast.ai](http://fast.ai) Lesson 4
+## Natural Language Processing with ULMFiT
+## ULMFiTで自然言語処理
+
+---
+
+# These slides are at Connpass. So you can check them out.
+## スライドはConnpassにアップされています。 是非みてください。
+
+---
+
+<SplitRight>
+
+<img src={arex} />
+
+# My username on Connpass is "globophobe".
+## Connpassのユーザ名は「globophobe」です。
+
+</SplitRight>
+
+---
+# A little while ago, I finished Fast.ai lesson four.
+## 少し前、Fast.aiレッスン4を終えました。
+
+---
+
+# Coincidentally, Fast.ai has documentation to use [Microsoft Data Science Virtual Machines](https://course.fast.ai/start_azure.html).
+##
+
+---
+
+# It seems useful.
+##
+
+---
+
+# Fast.ai is a free deep learning curriculum.
+## 無料機械学習カリキュラムです。
+
+---
+
+<SplitRight>
+
+<img src={jh} />
+
+# The teacher was Kaggle #1, and its president. 
+## 先生はKaggleの１位、そしてKaggleの組織の会長でした。
+
+</SplitRight>
+
+---
+
+# [Lesson 1](https://course.fast.ai/videos/?lesson=1) and [lesson 2](https://course.fast.ai/videos/?lesson=2) explain how to create a CNN with ResNet for transfer learning.
+## レッスン1と2は、簡単に転送学習用のResNetを使用してCNNを作成方法を説明します。
+
+---
+
+# [Lesson 3](https://course.fast.ai/videos/?lesson=3) explains in more detail how to use Fast.ai for image processing.
+## レッスン3では、Fast.aiライブラリを使用して、画像処理をする方法についてさらに詳しく説明します。
+
+---
+
+# [Lesson 4](https://course.fast.ai/videos/?lesson=4) explains how to use Fast.ai for natural language processing (NLP). 
+## レッスン4では、自然言語処理のために、Fasti.aiを利用する方法について説明します。
+
+---
+
+# Fast.ai uses transfer learning for NLP.
+## Fast.aiは自然言語処理のために転送学習を使用します
+
+---
+
+# The paper "[Universal Language Model Fine-tuning for Text Classification](https://arxiv.org/abs/1801.06146)" was published on arXiv.org in January 2018.
+## 2018年1月にarXiv.orgで論文が公開されました。
+
+---
+
+# According to the paper, because the ULMFiT model doesn’t have to learn from scratch...
+##
+
+---
+
+# ...it can generally reach higher accuracy with much less data and compute time.
+##
+
+---
+
+# ULMFit's accuracy was state of the art (SOTA) of the Internet Movie Database for sentiment analysis until recently. 
+##
+
+```
+XLNet (Yang et al., 2019) 	96.21 	XLNet: Generalized Autoregressive Pretraining for Language Understanding
+ULMFiT (Howard and Ruder, 2018) 	95.4 	Universal Language Model Fine-tuning for Text Classification
+```
+---
+
+# Recently, "[An Investigation of Transfer Learning-Based Sentiment Analysis in Japanese](https://arxiv.org/abs/1905.09642)" was published on arXiv.org
+## 最近、ULMFiTと日本語自然言語処理に関する論文がarXiv.orgで公開されました。
+
+---
+
+# That paper was published by researchers of the company ExaWizards in Tokyo.
+## その論文は、東京のExaWizards株式会社の研究者によって発表されました。
+
+---
+
+# The ELMo, ULMFiT, and BERT language models were compared.
+## ELMo、ULMFiT、そしてBERTという言語モデルは比較されました。
+
+---
+
+# The datasets used were the [Japanese Rakuten product review binary and 5 class datasets](https://github.com/zhangxiangxiao/glyph)...
+## 使用されたデータセットは、日本の楽天製品レビューバイナリと5クラスのデータセットで、
+
+---
+
+# ...as well as the [Japanese Yahoo movie review dataset](https://github.com/dennybritz/sentiment-analysis).
+## 日本のYahoo映画レビューデータセットでした。
+
+---
+
+# The ExaWizards researchers said the Yahoo movie dataset "better represents real life/practical situations".
+## Yahooの映画ビューデータセットが「実際の普段解決するのが必要機械学習の問題」と言われました。
+
+---
+
+# It seems the code and models will be released sometime after the ACL 2019 Annual Meeting.
+##
+
+---
+
+# Fast.ai recommends the Wikitext-103 pretrained model for transfer learning.
+## Wikitext 103の事前学習済みモデルは、転移学習に勧められています。
+
+---
+
+# Unfortunately, Fast.ai provides Wikitext-103 for English only.
+##
+
+---
+
+# At this time, there seem to be no pretrained models for Wikitext-103 for Japanese.
+##
+
+---
+
+# There is a [ulmfit-multilingual](https://github.com/tsurushun/ulmfit-multilingual/tree/japanese) repo for Japanese on github.
+##
+
+---
+
+# It is for an older version of Fast.ai
+##
+
+---
+
+# However, I could update the repo, and train Wikitext-2. 
+## 
+
+---
+
+# Wikitext-2 is about 50 times smaller than Wikitext-103.
+
+---
+
+# Wikitext-2 took about 30 minutes to train on my laptop.
+##
+
+---
+
+# Unfortunately, I didn't have enough RAM to train Wikitext-103.
+##
+
+---
+
+# By default, Fast.ai uses [spacy](https://spacy.io/) for tokenization.
+##
+
+---
+
+# However, the Fast.ai github repo has a TODO: "[handle tokenization of Chinese, Japanese, Korean](https://github.com/fastai/fastai/blob/4a7c6b6a21152de4af86cee1d48e844f509f6625/courses/dl2/imdb_scripts/create_toks.py#L48)".
+##
+
+---
+
+# So, tokenization of Japanese is not supported.
+##
+
+---
+
+# The ulmfit-multilingual repo uses SentencePiece, so I used that.
+##
+
+---
+
+# But, I was not satisfied with the tokenization.
+
+---
+
+# For example, [ようこそ] is tokenized as [よう, こそ].
+
+---
+
+# I tried a number of other tokenizers, including:
+
+```
+MeCab
+Janome
+Rakuten MA
+SudachiPy
+```
+---
+
+# Unfortunately, the result was almost the same.
+
+---
+
+# The Exawizards researchers used a custom MeCab tokenizer.
+##
+
+---
+
+# When Exawizards release their code I would like to look at their tokenization method.
+##
+
+---
+
+# I used the [Yahoo movie reviews dataset](https://github.com/dennybritz/sentiment-analysis) listed in the Exawizards paper.
+##
+
+---
+
+# There are 91196 reviews about 64 movies.
+##
+
+---
+
+# These were the top 5 movies, and the average ratings:
+
+```
+ショーシャンクの空に	4.595559
+ヱヴァンゲリヲン新劇場版：破	4.473582
+おくりびと	4.342424
+ワイルド・スピード　SKY　MISSION	4.299163
+それでもボクはやってない	4.275949
+```
+
+---
+
+# These were the bottom 5 movies, and the average ratings:
+
+```
+クローバーフィールド／HAKAISHA	3.107781
+ダ・ヴィンチ・コード	3.042135
+バベル	3.018098
+踊る大捜査線　THE MOVIE 3　ヤツらを解放せよ！	2.409702
+パッチギ！　LOVE&PEACE	1.659128
+```
+
+---
+
+# I thought maybe good ratings have longer review text length than poor ones.
+##
+
+---
+
+#  These are statistics for review text length.
+## 
+
+```
+Rating Mean Median Min Max 
+1	254.903907
+2	334.572351
+3	355.096665
+4	376.092749
+5	354.459826
+```
+
+---
+
+# The Fast.ai sample IMDB dataset has 1000 reviews.
+##
+
+---
+
+# I decided to randomly sample 1000 reviews from the Yahoo movie dataset.
+## 
+
+---
+
+#  500 positive reviews more than 3 stars, with text length at least 1000.
+##
+
+---
+
+# And, 500 negative reviews less than 3 stars, also with text length at least 1000.
+##
+
+---
+
+# First, the encoder was trained, with fit one cycle.
+
+```
+learn.fit_one_cycle(1, 1e-2)
+
+epoch	train_loss	valid_loss	accuracy	time
+0	5.107015	4.854713	0.210105	28:46
+
+```
+
+---
+
+# The layers unfrozen, and trained some more.
+
+```
+learn.unfreeze()
+learn.fit_one_cycle(1, 1e-3)
+
+epoch	train_loss	valid_loss	accuracy	time
+0	4.684608	4.614944	0.235636	45:27
+```
+
+---
+
+# The classifier was prepared using the encoder.
+
+```
+classifier = text_classifier_learner(data_clas, AWD_LSTM, pretrained=False, drop_mult=0.5)
+classifier.load_pretrained(wgts_fname=path/'models'/'qrnn_wt-2.pth', itos_fname=path/'models'/'itos_wt-2.pkl', strict=False) 
+classifier.load_encoder('ft_enc')
+```
+
+---
+
+# The classifier was trained with fit one cycle.
+##
+
+```
+classifier.fit_one_cycle(1, 1e-2)
+
+epoch	train_loss	valid_loss	accuracy	time
+0	0.656125	0.674278	0.577114	18:03
+```
+
+---
+
+# Some layers unfrozen, and trained some more.
+
+```
+classifier.freeze_to(-2)
+classifier.fit_one_cycle(1, slice(5e-3/2., 5e-3))
+```
+
+---
+
+# Dropout was 0.5 
