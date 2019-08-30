@@ -1,12 +1,19 @@
 import aspect from '@mdx-deck/themes/aspect';
+import { syntaxHighlighter } from 'mdx-deck/themes'
 import theme from './theme';
 import arex from './assets/arex.jpg';
 import jh from './assets/jeremy-howard.png';
+import ulmfit from './assets/ulmfit.png';
+import ulmfit1 from './assets/ulmfit1.png';
+import ulmfit2 from './assets/ulmfit2.png';
+import ulmfit3 from './assets/ulmfit3.png';
+import ratings from './assets/ratings.png';
+import confusion from './assets/confusion.png';
 
-export const themes = [ aspect, theme ];
+export const themes = [ aspect, syntaxHighlighter, theme ];
 
 # [Fast.ai](http://fast.ai) Lesson 4
-## Natural Language Processing with ULMFiT
+# Natural Language Processing with ULMFiT
 ## ULMFiTで自然言語処理
 
 ---
@@ -97,12 +104,12 @@ export const themes = [ aspect, theme ];
 
 ---
 
-# A few months ago, XLNet reached number 1.
-## 数か月前、XLNetは1位に達成しました。
+# Presently, XLNet is number 1.
+## 現在、XLNetは1位です。
 
 ```
-XLNet (Yang et al., 2019) 	96.21
-ULMFiT (Howard and Ruder, 2018) 	95.4
+           XLNet            96.21              
+           ULMFiT           95.4
 ```
 ---
 
@@ -126,8 +133,29 @@ ULMFiT (Howard and Ruder, 2018) 	95.4
 
 ---
 
+# Specifically, the research was about pre-training a language model in an unsupervised manner...
+## 具体的に、言語モデルは監督されないままで事前トレーニングして、
+
+---
+
+# ...and then fine-tuning it on a domain-specific dataset.
+## そして、ドメイン固有のデータセットを利用して、微調整する事です。
+
+---
+
+<SplitRight>
+
+<img src={ulmfit} />
+
+# Wikipedia is used for the pretrained model.
+## ウィキペディアは事前トレーニングモードに使用されます。
+
+</SplitRight>
+
+---
+
 # The datasets used were the [Japanese Rakuten product review binary and 5 class datasets](https://github.com/zhangxiangxiao/glyph)...
-## 使用されたデータセットは、日本の楽天製品レビューバイナリと5クラスのデータセットで、
+## 使用されたデータセットは、日本の楽天製品レビューデータセットで、
 
 ---
 
@@ -141,8 +169,18 @@ ULMFiT (Howard and Ruder, 2018) 	95.4
 
 ---
 
-# It seems the code and models will be released sometime after the ACL 2019 Annual Meeting.
-##
+# It seems the ExaWizards code and models will be released sometime after the ACL 2019 Annual Meeting.
+## コードとモデルは、ACL 2019年次総会の後にリリースされる予定です。
+
+---
+
+# However, they have not been released yet.
+## しかし、まだリリースされていません。 
+
+---
+
+# I thought I would try to make a classifier using the Yahoo movie dataset.
+## Yahooの映画データセットで分類子を作成しようと思いました。
 
 ---
 
@@ -152,222 +190,281 @@ ULMFiT (Howard and Ruder, 2018) 	95.4
 ---
 
 # Unfortunately, Fast.ai provides Wikitext-103 for English only.
-##
+## 残念ながら、Fast.aiは英語のみのWikitext-103を提供しています。
 
 ---
 
 # At this time, there seem to be no pretrained models for Wikitext-103 for Japanese.
-##
+## 現在、日本語版Wikitext-103の事前トレーニングモデルはないようです。
 
 ---
 
 # There is a [ulmfit-multilingual](https://github.com/tsurushun/ulmfit-multilingual/tree/japanese) repo for Japanese on github.
-##
+## githubには、日本語用のulmfit-multilingual gitフォークがあります。
 
 ---
 
 # It is for an older version of Fast.ai
-##
+## Fast.aiの少し古いバージョン用です。
 
 ---
 
 # However, I could update the repo, and train Wikitext-2. 
-## 
+## しかし、レポジトリを更新し、Wikitext-2をトレーニング出来ました。
 
 ---
 
 # Wikitext-2 is about 50 times smaller than Wikitext-103.
-
----
-
-# Wikitext-2 took about 30 minutes to train on my laptop.
-##
+## Wikitext-2は、Wikitext-103より約50倍小さいです。
 
 ---
 
 # Unfortunately, I didn't have enough RAM to train Wikitext-103.
-##
+## 残念ながら、Wikitext-103をトレーニングするためRAMが不十分でした。
 
 ---
 
-# By default, Fast.ai uses [spacy](https://spacy.io/) for tokenization.
-##
+# However, I thought Wikitext-2 would be enough to train a simple classifier.
+## しかし、単純な分類子を作成するにはWikitext-2で十分だと思いました。
 
 ---
 
-# However, the Fast.ai github repo has a TODO: "[handle tokenization of Chinese, Japanese, Korean](https://github.com/fastai/fastai/blob/4a7c6b6a21152de4af86cee1d48e844f509f6625/courses/dl2/imdb_scripts/create_toks.py#L48)".
-##
+<SplitRight>
+
+<img src={ulmfit1} />
+
+# Step 1 complete.
+## ステップ1完成です。
+
+</SplitRight>
+
 
 ---
 
-# So, tokenization of Japanese is not supported.
-##
+# Next, fine-tuning with the Yahoo movie dataset.
+## 次はYahoo映画データセットを使用して微調整する事です。
 
 ---
 
-# The ulmfit-multilingual repo uses SentencePiece, so I used that.
-##
+# There are 91,196 reviews of 64 movies in the Yahoo movie dataset:
+## Yahooデータセットには64の映画の91,196件のレビューがあります
 
 ---
 
-# But, I was not satisfied with the tokenization.
+# The next slide is the first review in the dataset.
+## 次のスライドはデータセットの一番最初のレビューです。
 
 ---
-
-# For example, [ようこそ] is tokenized as [よう, こそ].
-
----
-
-# I tried a number of other tokenizers, including:
 
 ```
-MeCab
-Janome
-Rakuten MA
-SudachiPy
-```
----
+movieName: おくりびと		
 
-# Unfortunately, the result was almost the same.
+title: ♡ヒロスエのパンツ♡
 
----
+text:	
+を見れたのが意外な収穫でした♡\n\n邦画もたまには良いかな。
 
-# The Exawizards researchers used a custom MeCab tokenizer.
-##
-
----
-
-# When Exawizards release their code I would like to look at their tokenization method.
-##
-
----
-
-# I used the [Yahoo movie reviews dataset](https://github.com/dennybritz/sentiment-analysis) listed in the Exawizards paper.
-##
-
----
-
-# There are 91196 reviews about 64 movies.
-##
-
----
-
-# These were the top 5 movies, and the average ratings:
-
-```
-ショーシャンクの空に	4.595559
-ヱヴァンゲリヲン新劇場版：破	4.473582
-おくりびと	4.342424
-ワイルド・スピード　SKY　MISSION	4.299163
-それでもボクはやってない	4.275949
+rating: 3
 ```
 
 ---
 
-# These were the bottom 5 movies, and the average ratings:
+<SplitRight>
+
+<img src={ratings} />
+
+# There are 5 ratings, and the classes are unbalanced.
+## 5つの評価があり、クラスは不均衡です。
+
+</SplitRight>
+
+---
+
+# I assumed good reviews would be longer than bad reviews.
+## 良いレビューは悪いレビューよりも長いと思いました。
+
+---
+
+# In fact, the lengths were not so different.
+## 実際、長さはそれほど違いはなかったです。
+
+---
+
+## Review lengths レビューの長さ
 
 ```
-クローバーフィールド／HAKAISHA	3.107781
-ダ・ヴィンチ・コード	3.042135
-バベル	3.018098
-踊る大捜査線　THE MOVIE 3　ヤツらを解放せよ！	2.409702
-パッチギ！　LOVE&PEACE	1.659128
-```
-
----
-
-# I thought maybe good ratings have longer review text length than poor ones.
-##
-
----
-
-#  These are statistics for review text length.
-## 
-
-```
-Rating Mean Median Min Max 
-1	254.903907
-2	334.572351
-3	355.096665
-4	376.092749
-5	354.459826
-```
-
----
-
-# The Fast.ai sample IMDB dataset has 1000 reviews.
-##
-
----
-
-# I decided to randomly sample 1000 reviews from the Yahoo movie dataset.
-## 
-
----
-
-#  500 positive reviews more than 3 stars, with text length at least 1000.
-##
-
----
-
-# And, 500 negative reviews less than 3 stars, also with text length at least 1000.
-##
-
----
-
-# First, the encoder was trained, with fit one cycle.
-
-```
-learn.fit_one_cycle(1, 1e-2)
-
-epoch	train_loss	valid_loss	accuracy	time
-0	5.107015	4.854713	0.210105	28:46
-
+		rating  mean    std     min  max			
+		1       245.2   285.5  	1    2104
+		2       324.3   317.7  	1    2093
+		3       344.4   318.7  	1    2067
+		4       365.3   334.6  	1    2317
+		5       343.9   358.9  	0    2242
 ```
 
 ---
 
-# The layers unfrozen, and trained some more.
+# The English example in the Fast.ai docs, uses 1000 reviews from the IMDB dataset.
+## Fast.aiドキュメントの英語の例は、IMDBデータセットの1000件のレビューを使用しています。
+
+---
+
+# Because I used Wikitext-2, I decided to use 10,000 reviews from the Yahoo dataset.
+## Wikitext-2を使用したため、Yahooデータセットから10,000件のレビューを使用する事にしました。
+
+---
 
 ```
-learn.unfreeze()
-learn.fit_one_cycle(1, 1e-3)
+  learn = language_model_learner(
+ 	  data_lm, AWD_LSTM, 
+	  pretrained_fnames=('qrnn_wt-2', 'itos_wt-2'), 
+ 	  drop_mult=0.5
+  )
+  learn.fit_one_cycle(1, 1e-2)
 
-epoch	train_loss	valid_loss	accuracy	time
-0	4.684608	4.614944	0.235636	45:27
+  epoch train_loss  valid_loss  accuracy  time
+  0     4.590764    4.487607    0.243777  1:20:02
 ```
 
 ---
 
-# The classifier was prepared using the encoder.
+```
+  learn.unfreeze()
+  learn.fit_one_cycle(1, 1e-3)
+
+  epoch train_loss  valid_loss  accuracy  time
+  0     4.272850    4.243399    0.272256  2:06:08
+
+  learn.save_encoder('ft_enc')
+```
+
+---
+
+<SplitRight>
+
+<img src={ulmfit2} />
+
+# Step 2 complete.
+## ステップ2完成です。
+
+</SplitRight>
+
+---
+
+# Next, training the classifier.
+## 次に、分類器をトレーニングする事です。
+
+---
 
 ```
-classifier = text_classifier_learner(data_clas, AWD_LSTM, pretrained=False, drop_mult=0.5)
-classifier.load_pretrained(wgts_fname=path/'models'/'qrnn_wt-2.pth', itos_fname=path/'models'/'itos_wt-2.pkl', strict=False) 
+classifier = text_classifier_learner(			
+	data_clas, AWD_LSTM, 
+	pretrained=False, 
+	drop_mult=0.5)
+classifier.load_pretrained(
+	wgts_fname=path/'models'/'qrnn_wt-2.pth', 
+	itos_fname=path/'models'/'itos_wt-2.pkl', 
+	strict=False)
 classifier.load_encoder('ft_enc')
 ```
 
 ---
 
-# The classifier was trained with fit one cycle.
-##
-
 ```
-classifier.fit_one_cycle(1, 1e-2)
+ classifier.fit_one_cycle(1, 1e-2)
 
-epoch	train_loss	valid_loss	accuracy	time
-0	0.656125	0.674278	0.577114	18:03
+ epoch train_loss  valid_loss  accuracy  time
+ 0     0.577836    0.508297    0.756122  1:00:52
 ```
 
 ---
 
-# Some layers unfrozen, and trained some more.
-
 ```
-classifier.freeze_to(-2)
-classifier.fit_one_cycle(1, slice(5e-3/2., 5e-3))
+ classifier.freeze_to(-2)
+ classifier.fit_one_cycle(1, slice(5e-3/2., 5e-3))
+
+ epoch train_loss  valid_loss  accuracy  time
+ 0     0.429069    0.360367    0.837581  1:10:35
 ```
 
 ---
 
-# Dropout was 0.5 
+# Accuracy is almost the same as the 1000 IMDB sample in the Fast.ai docs.
+## 精度は、Fast.aiドキュメントの1000 IMDBサンプルとほぼ同じです。
+
+
+---
+
+<SplitRight>
+
+<img src={ulmfit3} />
+
+# Step 3 complete.
+## ステップ3完成です。
+
+</SplitRight>
+
+---
+
+# Success 成功
+
+```
+ classifier.predict("すごく面白い映画です。")			
+
+ (Category positive, 
+	tensor(1), 
+	tensor([3.5251e-05, 9.9996e-01]))
+```
+
+---
+
+# To improve, I would like to try using Japanese Wikitext-103...
+## 改善するためには、日本語Wikitext-103を使用したいと思います、
+
+---
+
+# ...and, improve tokenization.
+## そして、トークン化を改善したいです。
+
+---
+
+# By default, Fast.ai uses [spacy](https://spacy.io/) for tokenization.
+## デフォルトでは、Fast.aiはトークン化にspacyを使用します。
+
+---
+
+# However, the github repo has a TODO: "[handle tokenization of Chinese, Japanese, Korean](https://github.com/fastai/fastai/blob/4a7c6b6a21152de4af86cee1d48e844f509f6625/courses/dl2/imdb_scripts/create_toks.py#L48)".
+## しかし、githubリポジトリにはTODOがあります：「中国語、日本語、韓国語のトークン化を処理する」
+
+---
+
+# Tokenization of Japanese is not officially supported.
+## 日本語のトークン化は公式にはサポートされていません。
+
+---
+
+# The ulmfit-multilingual repo uses SentencePiece, so I used that.
+## ulmfit-multilingualリポジトリはSentencePieceを使用するので、それを使用しました。
+
+---
+
+# But, I was not satisfied with the tokenization.
+## しかし、トークン化には満足していませんでした。
+
+---
+
+# I tried other tokenizers, including MeCab, Janome, Rakuten MA, SudachiPy, and Nagisa.
+## 他のトークナイザーを試しました。
+
+---
+
+# The Exawizards researchers used a MeCab tokenizer.
+## Exawizardsの研究者はMeCabトークナイザーを使用しました。
+
+---
+
+# When Exawizards release their code I would like to look at their tokenization method.
+## Exawizardsがコードをリリースする時、トークン化の方法を見たいと思います。
+
+---
+# That’s all. Thanks for listening.
+## 以上です。ご清聴ありがとうございます。
