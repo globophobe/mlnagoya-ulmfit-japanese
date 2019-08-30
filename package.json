@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "mdx-deck presentation.mdx",
-    "html": "mdx-deck build -d docs --basepath='/ulmfit' presentation.mdx",
+    "html": "mdx-deck build -d docs --basepath='/ulmfit-japanese' presentation.mdx",
     "pdf": "rm -rf dist && mdx-deck-export pdf --width 1280 --height 720 presentation.mdx"
   },
   "dependencies": {
