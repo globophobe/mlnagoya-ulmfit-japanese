@@ -1,8 +1,6 @@
 {
   "scripts": {
-    "start": "mdx-deck presentation.mdx",
-    "html": "mdx-deck build presentation.mdx",
-    "pdf": "website-pdf http://localhost:8000/print -o deck.pdf"
+    "start": "mdx-deck presentation.mdx"
   },
   "dependencies": {
     "gatsby-plugin-emotion": "^4.1.2",
