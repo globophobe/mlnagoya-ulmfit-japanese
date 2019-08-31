@@ -11,9 +11,10 @@ import ratings from './assets/ratings.png';
 
 export const themes = [ aspect, syntaxHighlighter, theme ];
 
-# [Fast.ai](http://fast.ai) Lesson 4
-# Natural Language Processing with ULMFiT
+# Natural Language Processing with ULMFiT 
 ## ULMFiTで自然言語処理
+
+**＊矢印キーで進んでください＊**
 
 ---
 
@@ -32,7 +33,7 @@ export const themes = [ aspect, syntaxHighlighter, theme ];
 </SplitRight>
 
 ---
-# A little while ago, I finished Fast.ai lesson four.
+# A little while ago, I finished [Fast.ai](http://fast.ai) lesson four.
 ## 少し前、Fast.aiレッスン4を終えました。
 
 ---
@@ -117,13 +118,13 @@ export const themes = [ aspect, syntaxHighlighter, theme ];
 
 ---
 
-# A while ago, "[An Investigation of Transfer Learning-Based Sentiment Analysis in Japanese](https://arxiv.org/abs/1905.09642)" was published on arXiv.org
+# A little while ago, "[An Investigation of Transfer Learning-Based Sentiment Analysis in Japanese](https://arxiv.org/abs/1905.09642)" was published on arXiv.org
 ## 少し前、ULMFiTと日本語自然言語処理に関する論文がarXiv.orgで公開されました。
 
 ---
 
-# That paper was published by researchers of the company ExaWizards in Tokyo.
-## その論文は、東京のExaWizards株式会社の研究者によって発表されました。
+# That paper was published by researchers at the company ExaWizards in Tokyo.
+## 論文は東京のExaWizards株式会社の研究者が発表されました。
 
 ---
 
@@ -146,14 +147,14 @@ export const themes = [ aspect, syntaxHighlighter, theme ];
 
 <img src={ulmfit} />
 
-# Wikipedia is used for the pretrained model.
-## ウィキペディアは事前トレーニングモードに使用されます。
+# Wikipedia data is used for the pretrained model.
+## ウィキペディアデータは事前トレーニングモデルに使用されます。
 
 </SplitRight>
 
 ---
 
-# The datasets used were the [Japanese Rakuten product review binary and 5 class datasets](https://github.com/zhangxiangxiao/glyph)...
+# The target datasets were the [Japanese Rakuten product review binary and 5 class datasets](https://github.com/zhangxiangxiao/glyph)...
 ## 使用されたデータセットは、日本の楽天製品レビューデータセットで、
 
 ---
@@ -198,12 +199,12 @@ export const themes = [ aspect, syntaxHighlighter, theme ];
 
 ---
 
-# There is a [ulmfit-multilingual](https://github.com/tsurushun/ulmfit-multilingual/tree/japanese) repo for Japanese on github.
+# There is a [ulmfit-multilingual](https://github.com/tsurushun/ulmfit-multilingual/tree/japanese) github fork for Japanese.
 ## githubには、日本語用のulmfit-multilingual gitフォークがあります。
 
 ---
 
-# It is for an older version of Fast.ai
+# It is for slightly older version of Fast.ai
 ## Fast.aiの少し古いバージョン用です。
 
 ---
@@ -232,7 +233,7 @@ export const themes = [ aspect, syntaxHighlighter, theme ];
 
 <img src={ulmfit1} />
 
-# Step 1 complete.
+# Step 1 is complete.
 ## ステップ1完成です。
 
 </SplitRight>
@@ -272,8 +273,8 @@ rating: 3
 
 <img src={ratings} />
 
-# There are 5 ratings, and the classes are unbalanced.
-## 5つの評価があり、クラスは不均衡です。
+# There are 5 classes, and they are unbalanced.
+## 5つのクラスがあり、クラスは不均衡です。
 
 </SplitRight>
 
@@ -307,8 +308,8 @@ rating: 3
 
 ---
 
-# Because I used Wikitext-2, I decided to use 10,000 reviews from the Yahoo dataset.
-## Wikitext-2を使用したため、Yahooデータセットから10,000件のレビューを使用する事にしました。
+# Because I used Wikitext-2, not Wikitext-103, I decided to use 10,000 reviews from the Yahoo dataset.
+## Wikitext-103ではなくって、Wikitext-2を使用したので、Yahooデータセットから10,000件のレビューを使用する事にしました。
 
 ---
 
@@ -342,7 +343,7 @@ rating: 3
 
 <img src={ulmfit2} />
 
-# Step 2 complete.
+# Step 2 is complete.
 ## ステップ2完成です。
 
 </SplitRight>
@@ -397,7 +398,7 @@ classifier.load_encoder('ft_enc')
 
 <img src={ulmfit3} />
 
-# Step 3 complete.
+# Step 3 is complete.
 ## ステップ3完成です。
 
 </SplitRight>
@@ -441,13 +442,13 @@ classifier.load_encoder('ft_enc')
 
 ---
 
-# The ulmfit-multilingual repo uses SentencePiece, so I used that.
-## ulmfit-multilingualリポジトリはSentencePieceを使用するので、それを使用しました。
+# The ulmfit-multilingual repo uses SentencePiece for tokenization.
+## トークン化のために、ulmfit-multilingualリポジトリはSentencePieceを使用します。
 
 ---
 
-# But, I was not satisfied with the tokenization.
-## しかし、トークン化には満足していませんでした。
+# So, I used it, but I was not satisfied.
+## なので、それを利用しましたが、トークン化には満足していませんでした。
 
 ---
 
